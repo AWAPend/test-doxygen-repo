@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Generate Default Doxyfile (if missing)
+        run: |
+          if [ ! -f Doxyfile ]; then
+            doxygen -g Doxyfile
+            sed -i 's|INPUT                  =|INPUT                  = src |' Doxyfile
+            sed -i 's|EXTRACT_ALL            = NO|EXTRACT_ALL            = YES|' Doxyfile
+          fi
+
       - name: Checkout Repository
         uses: actions/checkout@v3
 
