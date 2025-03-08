@@ -1,29 +1,20 @@
-name: Generate Doxygen Documentation
+name: Generate Doxygen Docs
 
 on:
   push:
     branches:
-      - main  # Run when code is pushed to main
-  pull_request:
+      - main  # Runs when pushing to main branch
 
 jobs:
-  build:
+  generate-docs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate Default Doxyfile (if missing)
-        run: |
-          if [ ! -f Doxyfile ]; then
-            doxygen -g Doxyfile
-            sed -i 's|INPUT                  =|INPUT                  = src |' Doxyfile
-            sed -i 's|EXTRACT_ALL            = NO|EXTRACT_ALL            = YES|' Doxyfile
-          fi
-
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Install Doxygen
-        run: sudo apt install doxygen graphviz -y
+        run: sudo apt-get install doxygen graphviz -y
 
       - name: Generate Documentation
         run: doxygen Doxyfile
@@ -32,4 +23,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./html
+          publish_dir: ./docs/html
