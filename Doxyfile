@@ -1,1 +1,8 @@
+PROJECT_NAME           = "Your Project"
+OUTPUT_DIRECTORY       = "docs"
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+EXTRACT_ALL            = YES
+RECURSIVE              = YES
+INPUT                  = src  # Change this to your code folder
 
